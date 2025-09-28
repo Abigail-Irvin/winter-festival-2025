@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Winter-festival-2025"
+run/main_scene="uid://be10a4y2vmh8t"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://assets/sprites/icon.svg"
 
