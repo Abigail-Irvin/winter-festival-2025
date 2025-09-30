@@ -4,6 +4,8 @@ var neighbors = []
 var connected = []
 var visited = false
 var tag = ""
+var x = 0
+var y = 0
 
 func _ready() -> void:
 	pass
@@ -13,7 +15,6 @@ func debug():
 		print(self.tag + " connects with: " + obj.tag)
 	
 func _to_string() -> String:
-	return "0"
 	if connected.size() > 0:
 		return "#"
 	return "0"
@@ -46,3 +47,12 @@ func get_unvisited_neighbors() -> Array:
 		if !obj.visited:
 			unvisited.append(obj)
 	return unvisited
+	
+func get_connections() -> Array:
+	return self.connected
+
+func get_x() -> int:
+	return x
+
+func get_y() -> int:
+	return y

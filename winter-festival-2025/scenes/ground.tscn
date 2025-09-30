@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpc3ap11a4ft6"]
+
+[ext_resource type="Script" uid="uid://u3jol1dxh8gp" path="res://scripts/ground.gd" id="1_pybca"]
+
+[node name="Ground" type="Node2D" node_paths=PackedStringArray("spriteRef")]
+scale = Vector2(0.1, 0.1)
+script = ExtResource("1_pybca")
+spriteRef = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
