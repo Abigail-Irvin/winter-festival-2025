@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3e5cw1s8vox0"]
+
+[ext_resource type="Texture2D" uid="uid://blwk6kh57026t" path="res://assets/sprites/snow_grass.png" id="1_6flaw"]
+
+[node name="Boundary" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.5647059)
+position = Vector2(6318, 25228.5)
+scale = Vector2(10, 100)
+texture = ExtResource("1_6flaw")
