@@ -1,6 +1,148 @@
-[gd_scene load_steps=2 format=3 uid="uid://be10a4y2vmh8t"]
+[gd_scene load_steps=4 format=3 uid="uid://be10a4y2vmh8t"]
 
 [ext_resource type="Script" uid="uid://b3ngj2g1uamf3" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dpc3ap11a4ft6" path="res://scenes/ground.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://kpgydvce31ww" path="res://scenes/player.tscn" id="3_sugp2"]
 
 [node name="Main" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_o5qli")
+
+[node name="organizer" type="Node2D" parent="."]
+
+[node name="Ground" parent="organizer" instance=ExtResource("2_0wfyh")]
+
+[node name="Ground2" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(2776, 38)
+
+[node name="Ground4" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-27, 2646)
+
+[node name="Ground5" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(2747, 2681)
+
+[node name="Ground7" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-32, 5414)
+
+[node name="Ground8" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(2772, 5455)
+
+[node name="Ground10" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-69, 8181)
+
+[node name="Ground11" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(2652, 8222)
+
+[node name="Ground13" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-111, 10948)
+
+[node name="Ground14" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(2678, 10991)
+
+[node name="Ground15" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(823, 9146)
+
+[node name="Ground16" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(720, 6308)
+
+[node name="Ground17" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(753, 3605)
+
+[node name="Ground6" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-2789, 2594)
+
+[node name="Ground9" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-2794, 5362)
+
+[node name="Ground12" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-2831, 8129)
+
+[node name="Ground21" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-2873, 10896)
+
+[node name="Ground22" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-1939, 9094)
+
+[node name="Ground23" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-2042, 6256)
+
+[node name="Ground24" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-2009, 3553)
+
+[node name="Ground25" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(5557, 1913)
+
+[node name="Ground33" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(5618, 34)
+
+[node name="Ground34" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-2729, 78)
+
+[node name="Ground35" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(6955, 11047)
+
+[node name="Ground36" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(7112, 8399)
+
+[node name="Ground37" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(7269, 5716)
+
+[node name="Ground38" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(7339, 3557)
+
+[node name="Ground39" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(7549, 1075)
+
+[node name="Ground40" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(7706, 35)
+
+[node name="Ground3" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(2872, -2400)
+
+[node name="Ground41" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(5714, -2404)
+
+[node name="Ground42" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(7802, -2403)
+
+[node name="Ground43" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-2743, -2510)
+
+[node name="Ground44" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(-1383, -2509)
+
+[node name="Ground45" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(705, -2508)
+
+[node name="Ground26" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(5264, 5546)
+
+[node name="Ground27" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(5227, 8313)
+
+[node name="Ground28" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(5185, 11080)
+
+[node name="Ground29" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(6119, 9278)
+
+[node name="Ground30" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(6016, 6440)
+
+[node name="Ground31" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(6049, 3737)
+
+[node name="Ground32" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(5999, 3743)
+
+[node name="Ground18" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(3130, 3849)
+
+[node name="Ground19" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(3049, 6731)
+
+[node name="Ground20" parent="organizer" instance=ExtResource("2_0wfyh")]
+position = Vector2(3038, 10014)
+
+[node name="Player" parent="." instance=ExtResource("3_sugp2")]
+position = Vector2(35, 35)

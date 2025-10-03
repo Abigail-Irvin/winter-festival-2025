@@ -1,13 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr7i8gmkjoyo6"]
+[gd_scene load_steps=4 format=3 uid="uid://cr7i8gmkjoyo6"]
 
-[ext_resource type="Texture2D" uid="uid://dj8agwyfn8llf" path="res://assets/sprites/icon.svg" id="1_cc7uu"]
 [ext_resource type="Script" uid="uid://b2hq3hk3217ab" path="res://scripts/maze_blocker.gd" id="1_jmk6m"]
+[ext_resource type="Texture2D" uid="uid://cjr506yx4tkyt" path="res://assets/sprites/tree1.png" id="2_jmk6m"]
 
-[node name="MazeBlocker" type="Node2D" node_paths=PackedStringArray("spriteRef")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jmk6m"]
+size = Vector2(50, 41)
+
+[node name="MazeBlocker" type="StaticBody2D" node_paths=PackedStringArray("spriteRef")]
+y_sort_enabled = true
 script = ExtResource("1_jmk6m")
 spriteRef = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-y_sort_enabled = true
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_cc7uu")
+texture = ExtResource("2_jmk6m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 42.5)
+shape = SubResource("RectangleShape2D_jmk6m")

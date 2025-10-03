@@ -4,6 +4,7 @@ var width = 20
 var maze_grid = []
 var maze_wall = load("res://scenes/maze-blocker.tscn")
 var ground = load("res://scenes/ground.tscn")
+var exit = load("res://scenes/exit.tscn")
 var winter = false
 
 func init_maze() -> void:
@@ -65,17 +66,40 @@ func print_maze() -> void:
 				line += str(maze_grid[i][j])
 		print(line)
 	print("##################################################################")
-	
+
+func check_closest_vector(new_coords, coord_list, extent) -> bool:
+	for vec in coord_list:
+		if abs(vec.x - new_coords.x) < extent and abs(vec.y - new_coords.y) < extent:
+			# too close to other vector, is basically the same
+			return false
+	# all good, not matching
+	return true
+
 func draw_maze() -> void:
-	#pre alg: draw all the grass
-	for i in range(height * 2):
-		for j in range(width * 2):
-			var ground_chip = ground.instantiate()
-			ground_chip.position = Vector2(j * 100, i * 100)
-			if winter:
-				ground_chip.set_winter(true)
-				ground_chip.update_sprite()
-			add_child(ground_chip)
+	#pre alg:
+	# draw blockers on three sides and leave bottom open with gate
+	var extended_height = int(height * 2.15)
+	var extended_width = int(width * 2.15)
+	for y in range(extended_height):
+		for x in range(extended_width):
+			var coords = Vector2((x * 100) - 100, (y * 100) - 100)
+			if x == extended_width / 2 and y >= extended_height - 1:
+					var gate_point = exit.instantiate()
+					gate_point.position = coords
+					add_child(gate_point)
+			elif y == 0 or y >= (extended_height) - 1:
+				# top/bottom row we want it fully covered.
+				var grid_point = maze_wall.instantiate()
+				grid_point.position = coords
+				add_child(grid_point)
+			elif x == 0 or x >= (extended_width) - 1:
+				# sides we only want two rows either end covered.
+				var grid_point = maze_wall.instantiate()
+				grid_point.position = coords
+				add_child(grid_point)
+			
+				
+					
 	#algorithm:
 	#start at 0,0, and push onto stack
 	#pop current cell, draw it at it's grid position.
@@ -87,7 +111,7 @@ func draw_maze() -> void:
 	var current_cell = maze_grid[0][0]
 	var stack = []
 	var prev_conns = []
-	var already_printed = []
+	var printed_coords = []
 	stack.append(current_cell)
 	while true:
 		if stack.size() == 0:
@@ -95,16 +119,16 @@ func draw_maze() -> void:
 		current_cell = stack.pop_back()
 		if current_cell == null:
 			continue
-		var print_test = str(current_cell.get_x()) + "," + str(current_cell.get_y())
-		if print_test not in already_printed:
+		var coords = Vector2((current_cell.get_x() * 200) + 100, (current_cell.get_y() * 200) + 100)
+		if check_closest_vector(coords, printed_coords, 50):
+			printed_coords.append(coords)
 			# check if we need to actually print a wall blocker, continue as normal
 			var grid_point = maze_wall.instantiate()
-			already_printed.append(print_test)
 			if winter: # sprite winter swticher
 				grid_point.set_winter(true)
 			else:
 				grid_point.set_winter(false)
-			grid_point.position = Vector2((current_cell.get_x() * 200) + 100, (current_cell.get_y() * 200) + 100)
+			grid_point.position = coords
 			add_child(grid_point)
 		for conn in current_cell.get_connections():
 			var conn_tester = str(conn.get_x()) + "," + str(conn.get_y()) + "->" + str(current_cell.get_x()) + "," + str(current_cell.get_y())
@@ -115,8 +139,8 @@ func draw_maze() -> void:
 				var curr_y = current_cell.get_y()
 				var conn_x = conn.get_x()
 				var conn_y = conn.get_y()
-				var x_offset = 100
-				var y_offset = 100
+				var x_offset: int = 100
+				var y_offset: int = 100
 				if conn_x > curr_x:
 					x_offset = 200
 				elif conn_x < curr_x:
@@ -125,11 +149,11 @@ func draw_maze() -> void:
 					y_offset = 200
 				elif conn_y < curr_y:
 					y_offset = 0
-				var conn_between_print_test = str(conn.get_x() + x_offset) + "," + str(conn.get_y() + y_offset)
-				if conn_between_print_test not in already_printed:
-					already_printed.append(conn_between_print_test)
+				var conn_coords = Vector2((conn_x * 200) + x_offset, (conn_y * 200) + y_offset)
+				if check_closest_vector(conn_coords, printed_coords, 50):
+					printed_coords.append(conn_coords)
 					var conn_between = maze_wall.instantiate()
-					conn_between.position = Vector2((conn_x * 200) + x_offset, (conn_y * 200) + y_offset)
+					conn_between.position = conn_coords
 					if winter:
 						conn_between.set_winter(true)
 					else:
