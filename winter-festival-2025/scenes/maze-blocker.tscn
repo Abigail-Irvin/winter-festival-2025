@@ -6,12 +6,20 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jmk6m"]
 size = Vector2(50, 41)
 
-[node name="MazeBlocker" type="StaticBody2D" node_paths=PackedStringArray("spriteRef")]
+[node name="MazeBlocker" type="StaticBody2D" node_paths=PackedStringArray("spriteRef", "shadowRef")]
 y_sort_enabled = true
 script = ExtResource("1_jmk6m")
-spriteRef = NodePath("Sprite2D")
+spriteRef = NodePath("main")
+shadowRef = NodePath("shadow")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="shadow" type="Sprite2D" parent="."]
+modulate = Color(0.011764706, 0.011764706, 0.011764706, 0.28627452)
+scale = Vector2(0.1, 0.125)
+skew = 0.12217295
+texture = ExtResource("2_jmk6m")
+offset = Vector2(65, -130)
+
+[node name="main" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_jmk6m")
 

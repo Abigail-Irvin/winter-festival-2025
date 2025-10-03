@@ -1,11 +1,12 @@
 extends Node2D
 var height = 50
-var width = 20
+var width = 50
 var maze_grid = []
 var maze_wall = load("res://scenes/maze-blocker.tscn")
-var ground = load("res://scenes/ground.tscn")
 var exit = load("res://scenes/exit.tscn")
 var winter = false
+@export var fall_ground: Node2D
+@export var winter_ground: Node2D
 
 func init_maze() -> void:
 	maze_grid.resize(height)
@@ -78,11 +79,23 @@ func check_closest_vector(new_coords, coord_list, extent) -> bool:
 func draw_maze() -> void:
 	#pre alg:
 	# draw blockers on three sides and leave bottom open with gate
-	var extended_height = int(height * 2.15)
-	var extended_width = int(width * 2.15)
+	if winter:
+		fall_ground.visible = false
+		winter_ground.visible = true
+	else:
+		fall_ground.visible = true
+		winter_ground.visible = false
+	var extended_height = int(height * 2.1)
+	var extended_width = int(width * 2.05)
 	for y in range(extended_height):
 		for x in range(extended_width):
 			var coords = Vector2((x * 100) - 100, (y * 100) - 100)
+			# corral for making it slightly  tougher
+			if (x == (extended_width / 2) - 20 and y >= extended_height - 4) or (x == (extended_width / 2) + 20 and y >= extended_height - 4):
+				var grid_point = maze_wall.instantiate()
+				grid_point.set_winter(winter)
+				grid_point.position = coords
+				add_child(grid_point)
 			if x == extended_width / 2 and y >= extended_height - 1:
 					var gate_point = exit.instantiate()
 					gate_point.position = coords
@@ -90,11 +103,13 @@ func draw_maze() -> void:
 			elif y == 0 or y >= (extended_height) - 1:
 				# top/bottom row we want it fully covered.
 				var grid_point = maze_wall.instantiate()
+				grid_point.set_winter(winter)
 				grid_point.position = coords
 				add_child(grid_point)
 			elif x == 0 or x >= (extended_width) - 1:
 				# sides we only want two rows either end covered.
 				var grid_point = maze_wall.instantiate()
+				grid_point.set_winter(winter)
 				grid_point.position = coords
 				add_child(grid_point)
 			
@@ -124,10 +139,7 @@ func draw_maze() -> void:
 			printed_coords.append(coords)
 			# check if we need to actually print a wall blocker, continue as normal
 			var grid_point = maze_wall.instantiate()
-			if winter: # sprite winter swticher
-				grid_point.set_winter(true)
-			else:
-				grid_point.set_winter(false)
+			grid_point.set_winter(winter)
 			grid_point.position = coords
 			add_child(grid_point)
 		for conn in current_cell.get_connections():
@@ -160,9 +172,22 @@ func draw_maze() -> void:
 						conn_between.set_winter(false)
 					add_child(conn_between)
 				stack.append(conn)
+				
+func advance_level() -> void:
+	if not winter:
+		winter = true
+		clear_maze()
+		init_maze()
+		call_deferred("draw_maze")
+	else:
+		print("game won!")
 		
+func clear_maze() -> void:
+	var root = self.get_tree().get_root().get_child(0)
+	for child in root.get_children():
+		if child.name.contains("StaticBody2D") or child.name.contains("MazeBlocker"):
+			child.queue_free()
 
 func _ready() -> void:
 	init_maze()
-	#print_maze()
 	draw_maze()

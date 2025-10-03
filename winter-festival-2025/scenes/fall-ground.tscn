@@ -1,0 +1,274 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpc3ap11a4ft6"]
+
+[ext_resource type="Texture2D" uid="uid://kchsvk4q420s" path="res://assets/sprites/grass_dead.png" id="2_mi8v4"]
+[ext_resource type="Texture2D" uid="uid://blwk6kh57026t" path="res://assets/sprites/snow_grass.png" id="3_lmksl"]
+
+[node name="ground" type="Node2D"]
+
+[node name="Grass1" type="Sprite2D" parent="."]
+z_index = -3
+texture_repeat = 2
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_mi8v4")
+region_enabled = true
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Grass2" type="Sprite2D" parent="."]
+z_index = -3
+texture_repeat = 2
+position = Vector2(95.99999, 113.99999)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_mi8v4")
+region_enabled = true
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Grass3" type="Sprite2D" parent="."]
+z_index = -3
+texture_repeat = 2
+position = Vector2(31.000008, 66)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_mi8v4")
+region_enabled = true
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="snow-organizer" type="Node2D" parent="."]
+
+[node name="Snow" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(2214.9998, 7272)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow2" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(2770.9998, 7072)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow3" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(70, 7351)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow4" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(-398.00012, 7768)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow5" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(-761, 8509)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow6" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(-122.99951, 6765)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow7" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(-863.9995, 7195)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow8" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1065.9995, 7412)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow9" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1510.9995, 6956)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow10" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1758.9995, 7571)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow11" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1602.9995, 7745)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow12" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1810.9995, 7908)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow13" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1229.9995, 7729)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow14" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1323, 8189)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow15" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(2168, 8489)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow16" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1467, 9023)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow17" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(2338, 7774)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow18" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(2601, 8990)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow19" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1648, 8281)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow20" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1228.9999, 8540)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow21" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(650.9999, 8488)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow22" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(961.9999, 8284)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow23" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(487.9999, 7917)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow24" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(139.99994, 9145)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow25" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(391.99994, 8666)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow26" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(877.9999, 8688)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow27" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(1385.9999, 8666)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow28" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(133.00003, 7896)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow29" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(-240.99997, 8044)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)
+
+[node name="Snow30" type="Sprite2D" parent="snow-organizer"]
+z_index = -3
+texture_repeat = 2
+position = Vector2(641, 7399)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_lmksl")
+region_rect = Rect2(200, 200000, 200000, 200000)

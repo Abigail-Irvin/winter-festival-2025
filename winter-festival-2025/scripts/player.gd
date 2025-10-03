@@ -7,6 +7,9 @@ var win_state: bool = false
 var paused: bool = false
 var timer: float = 0.0
 
+func _ready() -> void:
+	print(self.position)
+
 func _physics_process(delta: float) -> void:
 	# Description
 	# ----------
