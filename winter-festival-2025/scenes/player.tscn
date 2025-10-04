@@ -85,17 +85,28 @@ animations = [{
 "speed": 3.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animatedRef", "shadowRef")]
 script = ExtResource("1_3vyb7")
+animatedRef = NodePath("goober")
+shadowRef = NodePath("shadow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3vyb7")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="shadow" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.45882353)
+position = Vector2(5, -5)
+scale = Vector2(0.099999994, 0.099999994)
+skew = 0.22340214
+sprite_frames = SubResource("SpriteFrames_3vyb7")
+animation = &"down"
+frame_progress = 0.8657847
+
+[node name="goober" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_3vyb7")
 animation = &"down"
-frame_progress = 0.14393893
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+frame_progress = 0.30776742
