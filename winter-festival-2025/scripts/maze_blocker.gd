@@ -21,10 +21,11 @@ func set_winter(cold: bool):
 	winter = cold
 	
 func update_sprite():
-	var rand_index = randi() % winter_tree.size()
 	if winter:
+		var rand_index = randi() % winter_tree.size()
 		spriteRef.texture = winter_tree[rand_index]
 		shadowRef.texture = winter_tree[rand_index]
 	else:
+		var rand_index = randi() % fall_tree.size()
 		spriteRef.texture = fall_tree[rand_index]
 		shadowRef.texture = fall_tree[rand_index]

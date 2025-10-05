@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://be10a4y2vmh8t"]
+[gd_scene load_steps=7 format=3 uid="uid://be10a4y2vmh8t"]
 
 [ext_resource type="Script" uid="uid://b3ngj2g1uamf3" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://dpc3ap11a4ft6" path="res://scenes/fall-ground.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://kpgydvce31ww" path="res://scenes/player.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ccjbc32k4e6rq" path="res://scenes/winter-ground.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://d3e5cw1s8vox0" path="res://scenes/boundary.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://ce141wna0243v" path="res://scenes/main-ui.tscn" id="6_tefeu"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("fall_ground", "winter_ground")]
 y_sort_enabled = true
@@ -20,29 +21,34 @@ position = Vector2(35, 35)
 
 [node name="ground" parent="ground organizer" instance=ExtResource("2_0wfyh")]
 visible = false
-position = Vector2(3688, 2379)
+position = Vector2(1461, -3098)
 
 [node name="winter" parent="ground organizer" instance=ExtResource("4_jyhfs")]
 visible = false
-position = Vector2(5108, 6772)
+position = Vector2(4443, 5364)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 color = Color(0.7890553, 0.9123414, 0.99999994, 1)
 energy = 0.95
 blend_mode = 1
 
 [node name="Boundary" parent="." instance=ExtResource("5_tbgi4")]
-position = Vector2(-13981, -4745)
+position = Vector2(-13806, -4745)
 
 [node name="Boundary4" parent="." instance=ExtResource("5_tbgi4")]
-position = Vector2(11207, -6698)
+position = Vector2(5333, -6672)
 
 [node name="Boundary2" parent="." instance=ExtResource("5_tbgi4")]
 position = Vector2(39869, -13895)
 rotation = 1.5707964
 
 [node name="Boundary3" parent="." instance=ExtResource("5_tbgi4")]
-position = Vector2(39432, 11216)
+position = Vector2(39854, 5189)
 rotation = 1.5707964
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainUi" parent="CanvasLayer" instance=ExtResource("6_tefeu")]

@@ -8,9 +8,14 @@ var paused: bool = false
 var timer: float = 0.0
 @export var animatedRef: AnimatedSprite2D
 @export var shadowRef: AnimatedSprite2D
-
-func _ready() -> void:
-	print(self.position)
+	
+func _input(event: InputEvent) -> void:
+	if self.get_tree().get_root().get_child(0).get_paused():
+		return
+	if event.is_action_pressed("light"):
+		print("light it up")
+	elif event.is_action_pressed("special"):
+		print("sees all tbh")
 
 func _physics_process(delta: float) -> void:
 	# Description
@@ -21,6 +26,10 @@ func _physics_process(delta: float) -> void:
 	# ----------
 	# delta : float
 	#	represents the time between frames, used to do time-based calculations	
+	if self.get_tree().get_root().get_child(0).get_paused():
+		animatedRef.stop()
+		shadowRef.stop()
+		return
 	var x_axis := Input.get_axis("left", "right")
 	var y_axis := Input.get_axis("up", "down")
 	if x_axis:

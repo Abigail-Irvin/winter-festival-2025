@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfy0uydesof5o"]
+
+[ext_resource type="Script" uid="uid://uenp3u2q1vfc" path="res://scripts/title_screen.gd" id="1_20w21"]
+
+[node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("credit_screen")]
+script = ExtResource("1_20w21")
+credit_screen = NodePath("CanvasLayer/Credits")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Buttons" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Buttons"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start Game" type="Button" parent="CanvasLayer/Buttons/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Start Game"
+icon_alignment = 1
+
+[node name="Options" type="Button" parent="CanvasLayer/Buttons/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Options"
+icon_alignment = 1
+
+[node name="Credits" type="Button" parent="CanvasLayer/Buttons/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Credits"
+icon_alignment = 1
+
+[node name="Quit" type="Button" parent="CanvasLayer/Buttons/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Quit"
+icon_alignment = 1
+
+[node name="Credits" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -256.0
+offset_right = 250.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Credits/VBoxContainer"]
+custom_minimum_size = Vector2(950, 500)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 60
+text = "Credits
+
+Programmers: Isa and Abigail
+Art: Max
+Music: Abi
+
+Thank you for playing! ^w^"
+horizontal_alignment = 1
+
+[node name="Return" type="Button" parent="CanvasLayer/Credits/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Return to Menu"
+
+[connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Credits/VBoxContainer/Return" to="." method="_on_return_pressed"]

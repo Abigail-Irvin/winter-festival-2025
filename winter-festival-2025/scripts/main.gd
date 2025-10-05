@@ -1,12 +1,21 @@
 extends Node2D
-var height = 50
-var width = 50
+var height = 20
+var width = 20
 var maze_grid = []
 var maze_wall = load("res://scenes/maze-blocker.tscn")
 var exit = load("res://scenes/exit.tscn")
+var collectible = load("res://scenes/collectible.tscn")
+
 var winter = false
+var paused = true
 @export var fall_ground: Node2D
 @export var winter_ground: Node2D
+var total_collectibles = 0
+var max_collectibles_lvl_0 = 5
+var max_collectibles_lvl_1 = 5
+var cur_collectibles = 0
+var timer = 0
+var wait = false
 
 func init_maze() -> void:
 	maze_grid.resize(height)
@@ -52,21 +61,6 @@ func init_maze() -> void:
 			chosen_cell.add_connection(current_cell)
 			chosen_cell.visited = true
 			maze_stack.append(chosen_cell)
-	
-
-func print_maze() -> void:
-	print("##################################################################")
-	for i in range(height):
-		var line = ""
-		for j in range(width):
-			maze_grid[i][j].debug()
-			continue
-			if j < width - 1:
-				line += str(maze_grid[i][j]) + ", "
-			else:
-				line += str(maze_grid[i][j])
-		print(line)
-	print("##################################################################")
 
 func check_closest_vector(new_coords, coord_list, extent) -> bool:
 	for vec in coord_list:
@@ -85,8 +79,8 @@ func draw_maze() -> void:
 	else:
 		fall_ground.visible = true
 		winter_ground.visible = false
-	var extended_height = int(height * 2.1)
-	var extended_width = int(width * 2.05)
+	var extended_height = int(height * 2.15)
+	var extended_width = int(width * 2.1)
 	for y in range(extended_height):
 		for x in range(extended_width):
 			var coords = Vector2((x * 100) - 100, (y * 100) - 100)
@@ -136,12 +130,31 @@ func draw_maze() -> void:
 			continue
 		var coords = Vector2((current_cell.get_x() * 200) + 100, (current_cell.get_y() * 200) + 100)
 		if check_closest_vector(coords, printed_coords, 50):
+			# check if we can place a blocker, and if so either place collectible or wall blocker
 			printed_coords.append(coords)
-			# check if we need to actually print a wall blocker, continue as normal
-			var grid_point = maze_wall.instantiate()
-			grid_point.set_winter(winter)
-			grid_point.position = coords
-			add_child(grid_point)
+			var place_wall = true
+			if randi() % 50 == 42:
+				if not winter and max_collectibles_lvl_0 > 0:
+					var collect_point = collectible.instantiate()
+					collect_point.position = coords
+					add_child(collect_point)
+					max_collectibles_lvl_0 -= 1
+					total_collectibles += 1
+					place_wall = false
+				elif winter and max_collectibles_lvl_1 > 0:
+					var collect_point = collectible.instantiate()
+					collect_point.position = coords
+					add_child(collect_point)
+					max_collectibles_lvl_0 -= 1
+					total_collectibles += 1
+					place_wall = false
+					
+			if place_wall:
+				var grid_point = maze_wall.instantiate()
+				grid_point.set_winter(winter)
+				grid_point.position = coords
+				add_child(grid_point)
+
 		for conn in current_cell.get_connections():
 			var conn_tester = str(conn.get_x()) + "," + str(conn.get_y()) + "->" + str(current_cell.get_x()) + "," + str(current_cell.get_y())
 			var inv_tester = str(current_cell.get_x()) + "," + str(current_cell.get_y()) + "->" + str(conn.get_x()) + "," + str(conn.get_y()) 
@@ -173,14 +186,30 @@ func draw_maze() -> void:
 					add_child(conn_between)
 				stack.append(conn)
 				
+func collect_item():
+	cur_collectibles += 1
+	print("Nompf")
+	
+func start_game():
+	paused = false
+	wait = false
+	
+func win_game():
+	paused = true
+	print("Collectibles obtained: ", cur_collectibles, " Total: ", total_collectibles, " Time: ", round(timer))
+	
+func get_paused():
+	return paused
+	
 func advance_level() -> void:
 	if not winter:
 		winter = true
 		clear_maze()
 		init_maze()
 		call_deferred("draw_maze")
-	else:
-		print("game won!")
+		wait = true
+	elif winter and not wait:
+		win_game()
 		
 func clear_maze() -> void:
 	var root = self.get_tree().get_root().get_child(0)
@@ -191,3 +220,7 @@ func clear_maze() -> void:
 func _ready() -> void:
 	init_maze()
 	draw_maze()
+	
+func _process(delta: float) -> void:
+	if not paused:
+		timer += delta
