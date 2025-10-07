@@ -41,7 +41,8 @@ func reset_pos():
 func _input(event: InputEvent) -> void:
 	"""Basic input function for the player, used for the lantern and xray powers.
 	"""
-	if self.get_tree().get_root().get_child(0).get_paused():
+	var main_ref = self.get_tree().get_root().get_child(0)
+	if main_ref.get_paused():
 		return
 	if event.is_action_pressed("light") and not spawned_light:
 		light_ref = lantern.instantiate()
@@ -49,10 +50,10 @@ func _input(event: InputEvent) -> void:
 		light_ref.position.y += 20
 		add_child(light_ref)
 		spawned_light = true
-	elif event.is_action_pressed("special") and not xray_spawned:
+	elif event.is_action_pressed("special") and not xray_spawned and main_ref.sanity >= xray_sanity:
 		xray_spawned = true
 		xray = true
-		var main_ref = self.get_tree().get_root().get_child(0)
+		
 		if main_ref.sanity - xray_sanity > 0:
 			main_ref.sanity -= xray_sanity
 		

@@ -13,6 +13,7 @@ spriteRef = NodePath("main")
 shadowRef = NodePath("shadow")
 
 [node name="shadow" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.011764706, 0.011764706, 0.011764706, 0.10980392)
 light_mask = 4
 visibility_layer = 4
