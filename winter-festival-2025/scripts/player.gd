@@ -14,15 +14,14 @@ var lantern = load("res://scenes/jar.tscn")
 var light_ref: Node2D
 var lantern_timer = 0
 var lantern_max = 15
-var delay_spawn = 5
 var spawned_light = false
-var recently_spawned = false
 
 var xray = false
 var xray_spawned = false
 var xray_max = 15
 var xray_delay = 5
 var xray_sanity = 25
+var xray_timer = 0
 
 func update_sanity_mult(new_mult):
 	"""Helper function for the player called by main to update the current player
@@ -44,7 +43,7 @@ func _input(event: InputEvent) -> void:
 	"""
 	if self.get_tree().get_root().get_child(0).get_paused():
 		return
-	if event.is_action_pressed("light") and not spawned_light and not recently_spawned:
+	if event.is_action_pressed("light") and not spawned_light:
 		light_ref = lantern.instantiate()
 		light_ref.position.x += 20
 		light_ref.position.y += 20
@@ -53,7 +52,10 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("special") and not xray_spawned:
 		xray_spawned = true
 		xray = true
-		print("sees all tbh")
+		var main_ref = self.get_tree().get_root().get_child(0)
+		if main_ref.sanity - xray_sanity > 0:
+			main_ref.sanity -= xray_sanity
+		
 
 func _process(delta: float) -> void:
 	"""General update function for the player, for things that are not specifically physics
@@ -65,12 +67,13 @@ func _process(delta: float) -> void:
 			light_ref.queue_free()
 			spawned_light = false
 			lantern_timer = 0
-			recently_spawned = true
-	elif recently_spawned:
-		lantern_timer += delta
-		if lantern_timer > delay_spawn:
-			lantern_timer = 0
-			recently_spawned = false
+
+	if xray_spawned:
+		xray_timer += delta
+		if xray_timer > xray_delay:
+			xray_timer = 0
+			xray_spawned = false
+			xray = false
 
 func xray_look_at(coords: Vector2) -> void:
 	"""Helper function to get the arrow to point at the closest object. The offset of 90 degrees

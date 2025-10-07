@@ -24,7 +24,6 @@ var sanity = 100
 
 var collectible_coords = []
 
-
 func init_maze() -> void:
 	"""Main generative function for the maze, using the maze node approach we follow an iterative
 	stack algorithm in path generation ensuring a complete maze each time. By the end of this

@@ -98,6 +98,7 @@ xray_arrow = NodePath("arrow")
 shape = SubResource("CircleShape2D_3vyb7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
 
 [node name="shadow" type="AnimatedSprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.45882353)
@@ -118,6 +119,7 @@ frame_progress = 0.30776742
 visible = false
 
 [node name="arrow" type="Sprite2D" parent="."]
+visible = false
 light_mask = 0
 z_index = 10
 scale = Vector2(0.05, 0.05)
