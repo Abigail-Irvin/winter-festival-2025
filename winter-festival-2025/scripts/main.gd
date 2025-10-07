@@ -10,14 +10,27 @@ var winter = false
 var paused = true
 @export var fall_ground: Node2D
 @export var winter_ground: Node2D
-var total_collectibles = 0
-var max_collectibles_lvl_0 = 5
-var max_collectibles_lvl_1 = 5
-var cur_collectibles = 0
+@export var main_ui: Control
+@export var fall_shader: DirectionalLight2D
+@export var winter_shader: DirectionalLight2D
+@export var player_ref: CharacterBody2D
+var total_collectibles_needed = 0
+var collectible_total_lvl_0 = 0
+var collectible_total_lvl_1 = 0
+var cur_collected_lvl_0 = 0
+var cur_collected_lvl_1 = 0
 var timer = 0
-var wait = false
+var sanity = 100
+
+var collectible_coords = []
+
 
 func init_maze() -> void:
+	"""Main generative function for the maze, using the maze node approach we follow an iterative
+	stack algorithm in path generation ensuring a complete maze each time. By the end of this
+	function the maze_grid will be populated with all relevant neighbors and which nodes they then
+	connect to.
+	"""
 	maze_grid.resize(height)
 	for i in range(height):
 		maze_grid[i] = []
@@ -63,6 +76,11 @@ func init_maze() -> void:
 			maze_stack.append(chosen_cell)
 
 func check_closest_vector(new_coords, coord_list, extent) -> bool:
+	"""Helper function for the draw maze function. This serves to help prevent overwriting the same
+	general grid square with multiple copies of a maze blocker. This is important for performance,
+	but also in general graphical quality as blocker sprites are randomized and it will usually not
+	line up right if we put multiple in the same spot.
+	"""
 	for vec in coord_list:
 		if abs(vec.x - new_coords.x) < extent and abs(vec.y - new_coords.y) < extent:
 			# too close to other vector, is basically the same
@@ -71,6 +89,12 @@ func check_closest_vector(new_coords, coord_list, extent) -> bool:
 	return true
 
 func draw_maze() -> void:
+	"""Main function of the game, this takes the generation algorithm path and converts it to a patterned
+	map of maze blockers. To help corral the player before generating the maze proper, a box is made around
+	the general maze to help ensure there will only be one side with valid exits. In this function we also
+	generate all of the collectibles, which to help simplify the problem of "can we get this collectible" is
+	placed in place of a normal maze wall, which should ensure that no matter what it will be accessible.
+	"""
 	#pre alg:
 	# draw blockers on three sides and leave bottom open with gate
 	if winter:
@@ -133,20 +157,22 @@ func draw_maze() -> void:
 			# check if we can place a blocker, and if so either place collectible or wall blocker
 			printed_coords.append(coords)
 			var place_wall = true
-			if randi() % 50 == 42:
-				if not winter and max_collectibles_lvl_0 > 0:
+			if randi() % 42 == 20:
+				if not winter and collectible_total_lvl_0 < 10:
 					var collect_point = collectible.instantiate()
 					collect_point.position = coords
+					collectible_coords.append(collect_point.global_position)
 					add_child(collect_point)
-					max_collectibles_lvl_0 -= 1
-					total_collectibles += 1
+					collectible_total_lvl_0 += 1
+					total_collectibles_needed += 1
 					place_wall = false
-				elif winter and max_collectibles_lvl_1 > 0:
+				elif winter and collectible_total_lvl_1 < 10:
 					var collect_point = collectible.instantiate()
 					collect_point.position = coords
+					collectible_coords.append(collect_point.global_position)
 					add_child(collect_point)
-					max_collectibles_lvl_0 -= 1
-					total_collectibles += 1
+					collectible_total_lvl_1 += 1
+					total_collectibles_needed += 1
 					place_wall = false
 					
 			if place_wall:
@@ -186,41 +212,115 @@ func draw_maze() -> void:
 					add_child(conn_between)
 				stack.append(conn)
 				
-func collect_item():
-	cur_collectibles += 1
-	print("Nompf")
+func collect_item(coords: Vector2) -> void:
+	"""Helper function that is called whenever a collectible detects a player entering its area. This
+	will first check a coordinate array and remove the corresponding collectible from it, then check
+	what level we are at, and add the respective current collected. This is used to determine how many
+	collectibles are left in a stage, and later is tallied together for the score. The coordinate array
+	is then used with the xray arrow to help locate the next closest collectible.
+	"""
+	var remove_idx = -1
+	for idx in range(collectible_coords.size()):
+		var vec = collectible_coords[idx]
+		if vec == coords:
+			remove_idx = idx
+	if remove_idx != -1:
+		collectible_coords.remove_at(remove_idx)
+	if not winter:
+		cur_collected_lvl_0 += 1
+	else:
+		cur_collected_lvl_1 += 1
 	
 func start_game():
+	"""simple helper function called to ensure game start after clicking on the intro sequence.
+	"""
 	paused = false
-	wait = false
 	
 func win_game():
+	"""Calls the main ui to present the ending scene text and sets the relevant scoring information.
+	"""
+	if paused:
+		return
 	paused = true
-	print("Collectibles obtained: ", cur_collectibles, " Total: ", total_collectibles, " Time: ", round(timer))
+	var total_score = ((1 / (timer / 2)) + 0.5) * ((cur_collected_lvl_0 + cur_collected_lvl_1 + 0.5) / total_collectibles_needed) * 10000
+	var exit_text = "Collectibles obtained: " + str(cur_collected_lvl_0 + cur_collected_lvl_1) + "\nTotal Collectibles: " + str(total_collectibles_needed) + "\nTime: " + str(round(timer)) + "\nTotal Score: " + str(round(total_score))
+	main_ui.set_exit_text(exit_text)
+	
 	
 func get_paused():
+	"""Getter function for the paused variable, used specifically in the player script to stop movement.
+	"""
 	return paused
 	
 func advance_level() -> void:
+	"""Callback function called by exit gate when the player reaches its area. It is called by the
+	player script and is deferred due to its demand on the queue on clearing the entire maze and
+	regenerating.
+	"""
 	if not winter:
+		collectible_coords.clear()
 		winter = true
-		clear_maze()
-		init_maze()
+		fall_shader.visible = false
+		winter_shader.visible = true
+		call_deferred("clear_maze")
+		call_deferred("init_maze")
 		call_deferred("draw_maze")
-		wait = true
-	elif winter and not wait:
+	elif winter:
 		win_game()
 		
 func clear_maze() -> void:
+	"""Sets up everything in the game area to be cleared out to make room to regenerate the room.
+	"""
 	var root = self.get_tree().get_root().get_child(0)
 	for child in root.get_children():
 		if child.name.contains("StaticBody2D") or child.name.contains("MazeBlocker"):
 			child.queue_free()
 
 func _ready() -> void:
+	"""Startup function that makes the initial map.
+	"""
 	init_maze()
 	draw_maze()
 	
+func closest_collectible() -> Vector2:
+	"""Helper function for the player xray, utilizing the collectible vector array to determine
+	where the nearest collectible is and to set the player xray to point towards it when the power
+	is active.
+	"""
+	var closest_mag = INF
+	var closest_vec = Vector2(0, 0)
+	for vec in collectible_coords:
+		var dir_vec = vec - player_ref.global_position
+		if dir_vec.length() < closest_mag:
+			closest_mag = dir_vec.length()
+			closest_vec = vec
+	return closest_vec
+	
 func _process(delta: float) -> void:
+	"""Basic processing and ui updating function in main that handles calling main ui to update
+	relevant player information such as sanity and collectible data. Also handles player xray and
+	lantern powers.
+	"""
 	if not paused:
 		timer += delta
+		if player_ref.spawned_light:
+			sanity += delta * 1.5
+			if sanity > 100:
+				sanity = 100.0
+		else:
+			sanity -= (delta * 0.25)
+		player_ref.update_sanity_mult(sanity/100)
+		if player_ref.xray:
+			var closest_dir = closest_collectible()
+			player_ref.xray_look_at(closest_dir)
+		else:
+			player_ref.disable_xray()
+		var current_total = 0
+		var current_collected = 0
+		if winter:
+			current_total = collectible_total_lvl_1 - cur_collected_lvl_1
+			current_collected = cur_collected_lvl_1
+		else:
+			current_total = collectible_total_lvl_0 - cur_collected_lvl_0
+			current_collected = cur_collected_lvl_0
+		main_ui.update_ui_text(str(round(sanity)), str(current_total), str(current_collected), str(round(timer)))

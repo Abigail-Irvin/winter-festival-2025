@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://r3oewkvbmxlg" path="res://scripts/main_ui.gd" id="1_ejy5u"]
 
-[node name="MainUi" type="Control" node_paths=PackedStringArray("popup_diag")]
+[node name="MainUi" type="Control" node_paths=PackedStringArray("popup_diag", "exit_diag", "sanity_ref", "collectibles_ref", "total_collectibles_ref", "timer_ref")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,41 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ejy5u")
 popup_diag = NodePath("intro")
+exit_diag = NodePath("outro")
+sanity_ref = NodePath("VBoxContainer/sanity")
+collectibles_ref = NodePath("VBoxContainer/collectibles")
+total_collectibles_ref = NodePath("VBoxContainer/total_collectibles")
+timer_ref = NodePath("VBoxContainer/timer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="sanity" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 42
+text = "Sanity: 100"
+fit_content = true
+
+[node name="collectibles" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 42
+text = "Collectibles left in level: "
+fit_content = true
+
+[node name="total_collectibles" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 42
+text = "Total collectibles: "
+fit_content = true
+
+[node name="timer" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 42
+text = "Timer: "
+fit_content = true
 
 [node name="intro" type="Panel" parent="."]
 custom_minimum_size = Vector2(550, 400)
@@ -37,13 +72,26 @@ offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="intro/VBoxContainer"]
+[node name="intro_text" type="RichTextLabel" parent="intro/VBoxContainer"]
 custom_minimum_size = Vector2(500, 250)
 layout_mode = 2
-text = "Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It’s not a story the Jedi would tell you. It’s a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life… He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. Ironic. He could save others from death, but not himself."
+theme_override_font_sizes/normal_font_size = 32
+text = "Welcome to the Winter Snow Festival!
+To get to the main festivities you must first make your way deep into the hidden grove where Aga awaits. 
+
+The more sacred offerings you can locate along the path, the more pleased Aga shall be with your coven, and bless you with higher points.
+
+Controls:
+Movement: WSAD
+Light Lantern: E
+Collectible Hint: Q
+
+Also note on Sanity: the lower it gets, the slower your character will move, so keep it high with lanterns."
+horizontal_alignment = 1
 
 [node name="intro" type="Button" parent="intro/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 45
 text = "Begin"
 
 [node name="outro" type="Panel" parent="."]
@@ -72,13 +120,17 @@ offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="outro/VBoxContainer"]
+[node name="exit_text" type="RichTextLabel" parent="outro/VBoxContainer"]
 custom_minimum_size = Vector2(500, 250)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
 text = "Look at them, they come to this place when they know they are not pure. Tenno use the keys, but they are mere trespassers. Only I, Vor, know the true power of the Void. I was cut in half, destroyed, but through it's Janus Key, the Void called to me. It brought me here and here I was reborn. We cannot blame these creatures, they are being led by a false prophet, an impostor who knows not the secrets of the Void. Behold the Tenno, come to scavenge and desecrate this sacred realm. My brothers, did I not tell of this day? Did I not prophesize this moment? Now, I will stop them. Now I am changed, reborn through the energy of the Janus Key. Forever bound to the Void. Let it be known, if the Tenno want true salvation, they will lay down their arms, and wait for the baptism of my Janus key. It is time. I will teach these trespassers the redemptive power of my Janus key. They will learn it's simple truth. The Tenno are lost, and they will resist. But I, Vor, will cleanse this place of their impurity."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="exit" type="Button" parent="outro/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 42
 text = "Exit"
 
 [connection signal="pressed" from="intro/VBoxContainer/intro" to="." method="_on_intro_pressed"]

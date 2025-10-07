@@ -7,25 +7,22 @@ var tag = ""
 var x = 0
 var y = 0
 
-func _ready() -> void:
-	pass
-
-func debug():
-	for obj in connected:
-		print(self.tag + " connects with: " + obj.tag)
-	
-func _to_string() -> String:
-	if connected.size() > 0:
-		return "#"
-	return "0"
-
 func set_tag(other_tag: String) -> void:
+	"""Helper function that will set tag of this maze node, makes debugging
+	easier.
+	"""
 	tag = other_tag
 	
 func add_neighbor(other: MazeNode) -> void:
+	"""Primary function to attach nodes to each other, this will set valid
+	neighbor nodes which is used in the iterative algorithm.
+	"""
 	neighbors.append(other)
 
 func add_connection(other: MazeNode) -> void:
+	"""Primary function for path generation, following iterative algorithm a single
+	path of connected nodes will be formed.
+	"""
 	connected.append(other)
 	
 func check_if_connected(other: MazeNode) -> bool:
@@ -42,6 +39,8 @@ func has_unvisited_neighbor() -> bool:
 	return false
 	
 func get_unvisited_neighbors() -> Array:
+	"""Helper function that returns an array of only unvisited neighbors.
+	"""
 	var unvisited = []
 	for obj in neighbors:
 		if !obj.visited:
@@ -49,10 +48,16 @@ func get_unvisited_neighbors() -> Array:
 	return unvisited
 	
 func get_connections() -> Array:
+	"""Helper function to grab this node's connected array.
+	"""
 	return self.connected
 
 func get_x() -> int:
+	"""Gets the x value (in a grid setting) of this node.
+	"""
 	return x
 
 func get_y() -> int:
+	"""Gets the y value (in a grid setting) of this node.
+	"""
 	return y

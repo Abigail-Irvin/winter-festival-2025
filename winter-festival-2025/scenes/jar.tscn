@@ -1,3 +1,14 @@
-[gd_scene format=3 uid="uid://c4q45xkj8wes3"]
+[gd_scene load_steps=3 format=3 uid="uid://c4q45xkj8wes3"]
+
+[ext_resource type="Texture2D" uid="uid://biwnfbj5g2f2s" path="res://assets/sprites/lanturn.png" id="1_0uu57"]
+[ext_resource type="Texture2D" uid="uid://cg1suppyo3ej" path="res://assets/sprites/light-falloff.png" id="2_pwlvn"]
 
 [node name="Jar" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_0uu57")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.72156864, 0, 1)
+texture = ExtResource("2_pwlvn")

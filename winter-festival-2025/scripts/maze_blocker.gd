@@ -15,12 +15,19 @@ var fall_tree = [tree_3, tree_4, tree_5, tree_6, tree_8, tree_2]
 var winter: bool = false
 
 func _ready() -> void:
+	"""Startup function for maze blocker that will set initial sprite.
+	"""
 	update_sprite()
 
 func set_winter(cold: bool):
+	"""Setter function that changes sprite list from fall or winter varieties.
+	"""
 	winter = cold
 	
 func update_sprite():
+	"""Main function for maze blockers, ensuring that the sprite and shadow refs
+	will always refer to the same selection so shading will work properly.
+	"""
 	if winter:
 		var rand_index = randi() % winter_tree.size()
 		spriteRef.texture = winter_tree[rand_index]

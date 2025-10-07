@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://kpgydvce31ww"]
+[gd_scene load_steps=15 format=3 uid="uid://kpgydvce31ww"]
 
 [ext_resource type="Script" uid="uid://8j5e4qb2bsp3" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bsddqw136uebg" path="res://assets/sprites/sprite_winter.png" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://dpfsgp854tp6a" path="res://scenes/snow-effect.tscn" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://chfcg3g1e88ox" path="res://assets/sprites/directional-arrow.png" id="4_dqkch"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
 radius = 45.01111
@@ -85,16 +87,17 @@ animations = [{
 "speed": 3.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animatedRef", "shadowRef")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animatedRef", "shadowRef", "snowRef", "xray_arrow")]
 script = ExtResource("1_3vyb7")
 animatedRef = NodePath("goober")
 shadowRef = NodePath("shadow")
+snowRef = NodePath("SnowEffect")
+xray_arrow = NodePath("arrow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3vyb7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
 
 [node name="shadow" type="AnimatedSprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.45882353)
@@ -110,3 +113,13 @@ scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_3vyb7")
 animation = &"down"
 frame_progress = 0.30776742
+
+[node name="SnowEffect" parent="." instance=ExtResource("3_qhqgy")]
+visible = false
+
+[node name="arrow" type="Sprite2D" parent="."]
+light_mask = 0
+z_index = 10
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("4_dqkch")
+offset = Vector2(0, -2000)

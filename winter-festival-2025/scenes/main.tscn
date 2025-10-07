@@ -7,11 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://d3e5cw1s8vox0" path="res://scenes/boundary.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://ce141wna0243v" path="res://scenes/main-ui.tscn" id="6_tefeu"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("fall_ground", "winter_ground")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("fall_ground", "winter_ground", "main_ui", "fall_shader", "winter_shader", "player_ref")]
 y_sort_enabled = true
 script = ExtResource("1_o5qli")
 fall_ground = NodePath("ground organizer/ground")
 winter_ground = NodePath("ground organizer/winter")
+main_ui = NodePath("CanvasLayer/MainUi")
+fall_shader = NodePath("fall_lighting")
+winter_shader = NodePath("winter_lighting")
+player_ref = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("3_sugp2")]
 z_index = -1
@@ -29,9 +33,14 @@ position = Vector2(4443, 5364)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-visible = false
+[node name="fall_lighting" type="DirectionalLight2D" parent="."]
 color = Color(0.7890553, 0.9123414, 0.99999994, 1)
+energy = 0.95
+blend_mode = 1
+
+[node name="winter_lighting" type="DirectionalLight2D" parent="."]
+visible = false
+color = Color(1, 0.8765178, 0.6481695, 1)
 energy = 0.95
 blend_mode = 1
 
