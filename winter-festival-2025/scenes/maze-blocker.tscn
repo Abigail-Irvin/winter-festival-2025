@@ -13,9 +13,13 @@ spriteRef = NodePath("main")
 shadowRef = NodePath("shadow")
 
 [node name="shadow" type="Sprite2D" parent="."]
-modulate = Color(0.011764706, 0.011764706, 0.011764706, 0.28627452)
+modulate = Color(0.011764706, 0.011764706, 0.011764706, 0.10980392)
+light_mask = 4
+visibility_layer = 4
+z_index = -3
+y_sort_enabled = true
 scale = Vector2(0.1, 0.125)
-skew = 0.12217295
+skew = 0.20943952
 texture = ExtResource("2_jmk6m")
 offset = Vector2(65, -130)
 

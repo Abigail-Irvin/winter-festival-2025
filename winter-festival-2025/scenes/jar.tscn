@@ -10,5 +10,14 @@ scale = Vector2(0.05, 0.05)
 texture = ExtResource("1_0uu57")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 5
+visibility_layer = 5
+z_index = 10
+y_sort_enabled = true
+scale = Vector2(0.08, 0.08)
 color = Color(1, 0.72156864, 0, 1)
+energy = 0.25
+range_layer_min = -3
+range_layer_max = 3
+shadow_color = Color(0, 0, 0, 1)
 texture = ExtResource("2_pwlvn")

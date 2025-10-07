@@ -37,6 +37,7 @@ position = Vector2(4443, 5364)
 color = Color(0.7890553, 0.9123414, 0.99999994, 1)
 energy = 0.95
 blend_mode = 1
+shadow_color = Color(0, 0, 0, 0.68235296)
 
 [node name="winter_lighting" type="DirectionalLight2D" parent="."]
 visible = false
