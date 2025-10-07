@@ -14,6 +14,8 @@ var paused = true
 @export var fall_shader: DirectionalLight2D
 @export var winter_shader: DirectionalLight2D
 @export var player_ref: CharacterBody2D
+@export var ambiance_player: AudioStreamPlayer2D
+@export var music_player: AudioStreamPlayer2D
 var total_collectibles_needed = 0
 var collectible_total_lvl_0 = 0
 var collectible_total_lvl_1 = 0
@@ -23,7 +25,17 @@ var timer = 0
 var sanity = 100
 
 var collectible_coords = []
-
+func loop_playbacks() -> void:
+	if not ambiance_player.playing:
+		ambiance_player.play()
+	
+func switch_ambiance() -> void:
+	ambiance_player.stop()
+	ambiance_player.stream = load("res://assets/sounds/winter-forest-ambiance.wav")
+	ambiance_player.play()
+	if not music_player.playing:
+		music_player.play()
+	
 func init_maze() -> void:
 	"""Main generative function for the maze, using the maze node approach we follow an iterative
 	stack algorithm in path generation ensuring a complete maze each time. By the end of this
@@ -258,6 +270,7 @@ func advance_level() -> void:
 	"""
 	if not winter:
 		collectible_coords.clear()
+		switch_ambiance()
 		winter = true
 		fall_shader.visible = false
 		winter_shader.visible = true
@@ -300,6 +313,7 @@ func _process(delta: float) -> void:
 	relevant player information such as sanity and collectible data. Also handles player xray and
 	lantern powers.
 	"""
+	loop_playbacks()
 	if not paused:
 		timer += delta
 		if player_ref.spawned_light:

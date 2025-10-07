@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://kpgydvce31ww"]
+[gd_scene load_steps=16 format=3 uid="uid://kpgydvce31ww"]
 
 [ext_resource type="Script" uid="uid://8j5e4qb2bsp3" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bsddqw136uebg" path="res://assets/sprites/sprite_winter.png" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://dpfsgp854tp6a" path="res://scenes/snow-effect.tscn" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://chfcg3g1e88ox" path="res://assets/sprites/directional-arrow.png" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://fxk07xsu3jbl" path="res://assets/sounds/grass-walk.wav" id="5_qlg0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
 radius = 45.01111
@@ -87,12 +88,13 @@ animations = [{
 "speed": 3.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animatedRef", "shadowRef", "snowRef", "xray_arrow")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animatedRef", "shadowRef", "snowRef", "xray_arrow", "walk_sfxRef")]
 script = ExtResource("1_3vyb7")
 animatedRef = NodePath("goober")
 shadowRef = NodePath("shadow")
 snowRef = NodePath("SnowEffect")
 xray_arrow = NodePath("arrow")
+walk_sfxRef = NodePath("walking_sfx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3vyb7")
@@ -101,6 +103,7 @@ shape = SubResource("CircleShape2D_3vyb7")
 zoom = Vector2(5, 5)
 
 [node name="shadow" type="AnimatedSprite2D" parent="."]
+visible = false
 modulate = Color(0, 0, 0, 0.45882353)
 position = Vector2(5, -5)
 scale = Vector2(0.099999994, 0.099999994)
@@ -125,3 +128,7 @@ z_index = 10
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("4_dqkch")
 offset = Vector2(0, -2000)
+
+[node name="walking_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_qlg0r")
+bus = &"normal-sfx"

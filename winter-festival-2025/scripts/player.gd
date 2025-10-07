@@ -10,6 +10,7 @@ var timer: float = 0.0
 @export var shadowRef: AnimatedSprite2D
 @export var snowRef: Node2D
 @export var xray_arrow: Sprite2D
+@export var walk_sfxRef: AudioStreamPlayer2D
 var lantern = load("res://scenes/jar.tscn")
 var light_ref: Node2D
 var lantern_timer = 0
@@ -35,8 +36,13 @@ func reset_pos():
 	"""
 	self.position.x = 35
 	self.position.y = 35
+	switch_sfx()
 	self.get_tree().get_root().get_child(0).advance_level()
 	snowRef.visible = true
+
+func switch_sfx():
+	walk_sfxRef.stop()
+	walk_sfxRef.stream = load("res://assets/sounds/snow-walk.wav")
 
 func _input(event: InputEvent) -> void:
 	"""Basic input function for the player, used for the lantern and xray powers.
@@ -145,4 +151,9 @@ func _physics_process(delta: float) -> void:
 	if velocity.x == 0 and velocity.y == 0:
 		animatedRef.stop()
 		shadowRef.stop()
+		walk_sfxRef.stop()
+	else:
+		print("yest")
+		if not walk_sfxRef.playing:
+			walk_sfxRef.play()
 	timer += delta
