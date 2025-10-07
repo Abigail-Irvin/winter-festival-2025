@@ -69,6 +69,13 @@ func _process(delta: float) -> void:
 			lantern_timer = 0
 
 	if xray_spawned:
+		if not xray:
+			# disabled externally, reset cost
+			xray_spawned = false
+			xray_timer = 0
+			var main_ref = self.get_tree().get_root().get_child(0)
+			main_ref.sanity += 25
+			
 		xray_timer += delta
 		if xray_timer > xray_delay:
 			xray_timer = 0

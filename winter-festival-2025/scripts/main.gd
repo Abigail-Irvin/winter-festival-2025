@@ -309,7 +309,7 @@ func _process(delta: float) -> void:
 		else:
 			sanity -= (delta * 0.25)
 		player_ref.update_sanity_mult(sanity/100)
-		if player_ref.xray:
+		if player_ref.xray and collectible_coords.size() > 0:
 			var closest_dir = closest_collectible()
 			player_ref.xray_look_at(closest_dir)
 		else:
