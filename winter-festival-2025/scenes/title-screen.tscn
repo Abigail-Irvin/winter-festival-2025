@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfy0uydesof5o"]
+[gd_scene load_steps=5 format=3 uid="uid://cfy0uydesof5o"]
 
 [ext_resource type="Script" uid="uid://uenp3u2q1vfc" path="res://scripts/title_screen.gd" id="1_20w21"]
+[ext_resource type="Material" uid="uid://cp73jcbl7fnqc" path="res://scenes/snow-effect.tres" id="3_iqqu3"]
+[ext_resource type="Texture2D" uid="uid://cioebha5cf3ib" path="res://assets/sprites/title.png" id="3_vpwcr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20w21"]
 bg_color = Color(0.1136361, 0.120172255, 0.120611645, 1)
@@ -10,6 +12,19 @@ script = ExtResource("1_20w21")
 credit_screen = NodePath("CanvasLayer/Credits")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -555.5
+offset_top = -568.0
+offset_right = 555.5
+offset_bottom = 568.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_vpwcr")
 
 [node name="Buttons" type="Panel" parent="CanvasLayer"]
 anchors_preset = 15
@@ -101,6 +116,28 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Return to Menu"
+
+[node name="name" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 42
+text = "Maze Game: Winter Edition"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="goober" type="Sprite2D" parent="."]
+position = Vector2(2259, 1785)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_vpwcr")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 800
+lifetime = 60.0
+preprocess = 15.0
+speed_scale = 6.0
+process_material = ExtResource("3_iqqu3")
 
 [connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Options" to="." method="_on_options_pressed"]
