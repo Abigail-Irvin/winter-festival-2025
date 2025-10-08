@@ -237,10 +237,10 @@ func collect_item(coords: Vector2) -> void:
 			remove_idx = idx
 	if remove_idx != -1:
 		collectible_coords.remove_at(remove_idx)
-	if not winter:
-		cur_collected_lvl_0 += 1
-	else:
-		cur_collected_lvl_1 += 1
+		if not winter:
+			cur_collected_lvl_0 += 1
+		else:
+			cur_collected_lvl_1 += 1
 	
 func start_game():
 	"""simple helper function called to ensure game start after clicking on the intro sequence.

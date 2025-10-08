@@ -153,7 +153,6 @@ func _physics_process(delta: float) -> void:
 		shadowRef.stop()
 		walk_sfxRef.stop()
 	else:
-		print("yest")
 		if not walk_sfxRef.playing:
 			walk_sfxRef.play()
 	timer += delta
