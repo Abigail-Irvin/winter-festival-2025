@@ -25,6 +25,7 @@ var timer = 0
 var sanity = 100
 
 var collectible_coords = []
+	
 func loop_playbacks() -> void:
 	if not ambiance_player.playing:
 		ambiance_player.play()
@@ -293,6 +294,9 @@ func _ready() -> void:
 	"""
 	init_maze()
 	draw_maze()
+	AudioServer.set_bus_volume_linear(0, GlobalData.master_volume_control / 100)
+	AudioServer.set_bus_volume_linear(1, GlobalData.music_volume_control / 100)
+	AudioServer.set_bus_volume_linear(2, GlobalData.sfx_volume_control / 100)
 	
 func closest_collectible() -> Vector2:
 	"""Helper function for the player xray, utilizing the collectible vector array to determine

@@ -131,4 +131,4 @@ offset = Vector2(0, -2000)
 
 [node name="walking_sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_qlg0r")
-bus = &"normal-sfx"
+bus = &"Sfx"

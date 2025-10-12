@@ -23,7 +23,11 @@ var xray_max = 15
 var xray_delay = 5
 var xray_sanity = 25
 var xray_timer = 0
+var main_ref = null
 
+func _ready() -> void:
+	main_ref = self.get_tree().get_root().get_child(1)
+	
 func update_sanity_mult(new_mult):
 	"""Helper function for the player called by main to update the current player
 	sanity, used in determining player speed.
@@ -37,7 +41,7 @@ func reset_pos():
 	self.position.x = 35
 	self.position.y = 35
 	switch_sfx()
-	self.get_tree().get_root().get_child(0).advance_level()
+	main_ref.advance_level()
 	snowRef.visible = true
 
 func switch_sfx():
@@ -47,7 +51,6 @@ func switch_sfx():
 func _input(event: InputEvent) -> void:
 	"""Basic input function for the player, used for the lantern and xray powers.
 	"""
-	var main_ref = self.get_tree().get_root().get_child(0)
 	if main_ref.get_paused():
 		return
 	if event.is_action_pressed("light") and not spawned_light:
@@ -80,7 +83,6 @@ func _process(delta: float) -> void:
 			# disabled externally, reset cost
 			xray_spawned = false
 			xray_timer = 0
-			var main_ref = self.get_tree().get_root().get_child(0)
 			main_ref.sanity += 25
 			
 		xray_timer += delta
@@ -114,7 +116,7 @@ func _physics_process(delta: float) -> void:
 	# ----------
 	# delta : float
 	#	represents the time between frames, used to do time-based calculations	
-	if self.get_tree().get_root().get_child(0).get_paused():
+	if main_ref.get_paused():
 		animatedRef.stop()
 		shadowRef.stop()
 		return

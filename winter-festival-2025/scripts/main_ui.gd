@@ -5,12 +5,16 @@ extends Node
 @export var collectibles_ref: RichTextLabel
 @export var total_collectibles_ref: RichTextLabel	
 @export var timer_ref: RichTextLabel
+var main_ref = null
+
+func _ready() -> void:
+	main_ref = self.get_tree().get_root().get_child(1)
 
 func _on_intro_pressed() -> void:
 	"""Callback function when the intro popup is closed, starting the game.
 	"""
 	popup_diag.visible = false
-	self.get_tree().get_root().get_child(0).start_game()
+	main_ref.start_game()
 
 
 func _on_exit_pressed() -> void:
