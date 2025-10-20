@@ -312,6 +312,9 @@ func open_popup() -> void:
 	quiz_easter_egg_ref.visible = true
 
 func open_easter_egg() -> void:
+	music_player.stop()
+	music_player.stream = load("res://assets/sounds/retro-game.mp3")
+	music_player.play()
 	easter_egg_ref.visible = true
 	
 func _process(delta: float) -> void:
