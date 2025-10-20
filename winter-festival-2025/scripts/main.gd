@@ -28,8 +28,10 @@ var collectible_coords = []
 var open_easter_egg_at = 0
 	
 func loop_playbacks() -> void:
-	if not ambiance_player.playing:
+	if not ambiance_player.playing and not GlobalData.paused:
 		ambiance_player.play()
+	elif GlobalData.paused:
+		ambiance_player.stop()
 	
 func switch_ambiance() -> void:
 	ambiance_player.stop()
@@ -279,8 +281,7 @@ func advance_level() -> void:
 func clear_maze() -> void:
 	"""Sets up everything in the game area to be cleared out to make room to regenerate the room.
 	"""
-	var root = self.get_tree().get_root().get_child(0)
-	for child in root.get_children():
+	for child in self.get_children():
 		if child.name.contains("StaticBody2D") or child.name.contains("MazeBlocker"):
 			child.queue_free()
 

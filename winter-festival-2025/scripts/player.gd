@@ -118,6 +118,7 @@ func _physics_process(delta: float) -> void:
 	if GlobalData.paused:
 		animatedRef.stop()
 		shadowRef.stop()
+		walk_sfxRef.stop()
 		return
 	var x_axis := Input.get_axis("left", "right")
 	var y_axis := Input.get_axis("up", "down")
