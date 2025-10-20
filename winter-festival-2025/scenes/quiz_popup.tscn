@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://7rk412km6ft2"]
+[gd_scene load_steps=3 format=3 uid="uid://7rk412km6ft2"]
 
 [ext_resource type="Script" uid="uid://d1gl8tda82yx" path="res://scripts/quiz_popup.gd" id="1_8y1c6"]
+[ext_resource type="AudioStream" uid="uid://3uq0jrupgiua" path="res://assets/sounds/468443__breviceps__squeaky-toy-1.wav" id="2_x25c4"]
 
-[node name="QuizPopup" type="Control" node_paths=PackedStringArray("snowdrop_ref", "holly_ref", "pansy_ref")]
+[node name="QuizPopup" type="Control" node_paths=PackedStringArray("snowdrop_ref", "holly_ref", "pansy_ref", "ui_ref")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +14,7 @@ script = ExtResource("1_8y1c6")
 snowdrop_ref = NodePath("Panel/VBoxContainer/Snowdrop")
 holly_ref = NodePath("Panel/VBoxContainer/Holly")
 pansy_ref = NodePath("Panel/VBoxContainer/Pansy")
+ui_ref = NodePath("UI")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(350, 300)
@@ -61,6 +63,12 @@ text = "Holly"
 layout_mode = 2
 text = "Snowdrop"
 
+[node name="UI" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_x25c4")
+volume_db = -10.0
+bus = &"Sfx"
+
+[connection signal="mouse_entered" from="Panel/VBoxContainer/Pansy" to="." method="_on_pansy_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/Pansy" to="." method="_on_pressed"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/Holly" to="." method="_on_holly_mouse_entered"]
 [connection signal="mouse_exited" from="Panel/VBoxContainer/Holly" to="." method="_on_holly_mouse_exited"]

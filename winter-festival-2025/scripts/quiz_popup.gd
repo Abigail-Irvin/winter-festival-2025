@@ -2,6 +2,7 @@ extends Node
 @export var snowdrop_ref: Button
 @export var holly_ref: Button
 @export var pansy_ref: Button
+@export var ui_ref: AudioStreamPlayer
 var snowdrop_counter = 0
 var holly_counter = 0
 var snowdrop_tease_list = ["Oops so sorry, I meant to put Pansy here!", "Wait I forget how you spell it, starts with a P",
@@ -19,6 +20,7 @@ func _on_snowdrop_mouse_entered() -> void:
 	else:
 		snowdrop_ref.text = "Pansy"
 	snowdrop_counter += 1
+	ui_ref.play()
 
 
 func _on_snowdrop_mouse_exited() -> void:
@@ -31,6 +33,7 @@ func _on_holly_mouse_entered() -> void:
 	else:
 		holly_ref.text = "Pansy"
 	holly_counter += 1
+	ui_ref.play()
 
 
 func _on_holly_mouse_exited() -> void:
@@ -40,3 +43,8 @@ func _on_holly_mouse_exited() -> void:
 func _on_pressed() -> void:
 	self.get_tree().get_root().get_child(1).open_easter_egg()
 	self.visible = false
+	ui_ref.play()
+
+
+func _on_pansy_mouse_entered() -> void:
+	ui_ref.play()

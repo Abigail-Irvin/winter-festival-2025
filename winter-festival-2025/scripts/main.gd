@@ -15,6 +15,7 @@ var winter = false
 @export var player_ref: CharacterBody2D
 @export var ambiance_player: AudioStreamPlayer2D
 @export var music_player: AudioStreamPlayer2D
+@export var item_pickup: AudioStreamPlayer2D
 @export var easter_egg_ref: Control
 @export var quiz_easter_egg_ref: Control
 var total_collectibles_needed = 0
@@ -234,6 +235,7 @@ func collect_item(coords: Vector2) -> void:
 	collectibles are left in a stage, and later is tallied together for the score. The coordinate array
 	is then used with the xray arrow to help locate the next closest collectible.
 	"""
+	item_pickup.play()
 	var remove_idx = -1
 	for idx in range(collectible_coords.size()):
 		var vec = collectible_coords[idx]

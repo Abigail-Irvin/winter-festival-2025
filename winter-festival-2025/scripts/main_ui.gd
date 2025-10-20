@@ -5,6 +5,7 @@ extends Node
 @export var collectibles_ref: RichTextLabel
 @export var total_collectibles_ref: RichTextLabel	
 @export var timer_ref: RichTextLabel
+@export var ui_mixer: AudioStreamPlayer
 var main_ref = null
 
 func _ready() -> void:
@@ -15,6 +16,7 @@ func _on_intro_pressed() -> void:
 	"""
 	popup_diag.visible = false
 	main_ref.start_game()
+	ui_mixer.play()
 
 
 func _on_exit_pressed() -> void:
@@ -36,3 +38,7 @@ func update_ui_text(sanity_amt: String, collectible_amt: String, total_collected
 	collectibles_ref.text = "Collectibles left in level: " + collectible_amt
 	total_collectibles_ref.text = "Total collectibles: " + total_collected
 	timer_ref.text = "Timer: " + timer
+
+
+func _on_mouse_entered() -> void:
+	ui_mixer.play()

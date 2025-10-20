@@ -1,16 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfy0uydesof5o"]
+[gd_scene load_steps=7 format=3 uid="uid://cfy0uydesof5o"]
 
 [ext_resource type="Script" uid="uid://uenp3u2q1vfc" path="res://scripts/title_screen.gd" id="1_20w21"]
 [ext_resource type="Material" uid="uid://cp73jcbl7fnqc" path="res://scenes/snow-effect.tres" id="3_iqqu3"]
 [ext_resource type="Texture2D" uid="uid://cioebha5cf3ib" path="res://assets/sprites/title.png" id="3_vpwcr"]
+[ext_resource type="AudioStream" uid="uid://cuecfg1w5u066" path="res://assets/sounds/Winter_Festival_Title.wav" id="4_iqqu3"]
+[ext_resource type="AudioStream" uid="uid://wjo6ctu8ttnk" path="res://assets/sounds/365105__jofae__beep-sound-effect.mp3" id="5_xbjre"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20w21"]
 bg_color = Color(0.1136361, 0.120172255, 0.120611645, 1)
 
-[node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("credit_screen", "options_screen")]
+[node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("credit_screen", "options_screen", "sound_mixer", "ui_mixer")]
 script = ExtResource("1_20w21")
 credit_screen = NodePath("CanvasLayer/Credits")
 options_screen = NodePath("CanvasLayer/Options")
+sound_mixer = NodePath("AudioStreamPlayer2D")
+ui_mixer = NodePath("AudioStreamPlayer2D2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -157,7 +161,7 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-value = 50.0
+value = 100.0
 
 [node name="MusicBar" type="HBoxContainer" parent="CanvasLayer/Options/VBoxContainer"]
 layout_mode = 2
@@ -173,7 +177,7 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-value = 50.0
+value = 100.0
 
 [node name="SfxBar" type="HBoxContainer" parent="CanvasLayer/Options/VBoxContainer"]
 layout_mode = 2
@@ -189,7 +193,7 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-value = 50.0
+value = 100.0
 
 [node name="Return_from_options" type="Button" parent="CanvasLayer/Options/VBoxContainer"]
 layout_mode = 2
@@ -218,12 +222,28 @@ preprocess = 15.0
 speed_scale = 6.0
 process_material = ExtResource("3_iqqu3")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_iqqu3")
+autoplay = true
+bus = &"Music"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_xbjre")
+volume_db = -10.0
+bus = &"Sfx"
+
+[connection signal="mouse_entered" from="CanvasLayer/Buttons/VBoxContainer/Start Game" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Buttons/VBoxContainer/Options" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Buttons/VBoxContainer/Credits" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Buttons/VBoxContainer/Quit" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Buttons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Credits/VBoxContainer/Return" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Credits/VBoxContainer/Return" to="." method="_on_return_pressed"]
 [connection signal="value_changed" from="CanvasLayer/Options/VBoxContainer/MainBar/Main_slider" to="." method="_on_main_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Options/VBoxContainer/MusicBar/Music_slider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Options/VBoxContainer/SfxBar/Sfx_slider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="mouse_entered" from="CanvasLayer/Options/VBoxContainer/Return_from_options" to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Options/VBoxContainer/Return_from_options" to="." method="_on_return_from_options_pressed"]

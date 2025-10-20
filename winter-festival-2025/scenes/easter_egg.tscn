@@ -1,13 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://cur4u01i2f6u2"]
+[gd_scene load_steps=7 format=3 uid="uid://cur4u01i2f6u2"]
 
 [ext_resource type="Texture2D" uid="uid://dqj8h70uilw1" path="res://assets/sprites/isa-skrunkl.png" id="1_atl7k"]
 [ext_resource type="Script" uid="uid://cjo1euf1r3ibo" path="res://scripts/easter_egg.gd" id="1_w823v"]
 [ext_resource type="Texture2D" uid="uid://dets1qcxhkt0f" path="res://assets/sprites/abi-skrunkl.png" id="2_w823v"]
+[ext_resource type="AudioStream" uid="uid://wjo6ctu8ttnk" path="res://assets/sounds/365105__jofae__beep-sound-effect.mp3" id="4_12l1w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w823v"]
 bg_color = Color(0.18072984, 0.03973155, 0.29142746, 1)
 
-[node name="EasterEgg" type="Control" node_paths=PackedStringArray("abiRef", "isaRef")]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w823v"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1000, 45, 1)
+inherit_velocity_ratio = 1.0
+direction = Vector3(-100, 100, 0)
+initial_velocity_max = 203.92
+gravity = Vector3(80, 98, 0)
+scale_min = 5.0
+scale_max = 5.0
+turbulence_enabled = true
+
+[node name="EasterEgg" type="Control" node_paths=PackedStringArray("abiRef", "isaRef", "effect", "ui_mixer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +30,8 @@ grow_vertical = 2
 script = ExtResource("1_w823v")
 abiRef = NodePath("Abi")
 isaRef = NodePath("Isa")
+effect = NodePath("GPUParticles2D")
+ui_mixer = NodePath("UI_Mixer")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -28,6 +43,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w823v")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+z_index = 2
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -125,4 +141,18 @@ texture = ExtResource("2_w823v")
 expand_mode = 3
 flip_h = true
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(556, 46)
+amount = 450
+lifetime = 15.0
+preprocess = 30.0
+speed_scale = 2.0
+process_material = SubResource("ParticleProcessMaterial_w823v")
+
+[node name="UI_Mixer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_12l1w")
+volume_db = -10.0
+bus = &"Sfx"
+
+[connection signal="mouse_entered" from="Panel/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/Button" to="." method="_on_button_pressed"]

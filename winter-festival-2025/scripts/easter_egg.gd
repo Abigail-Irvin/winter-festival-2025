@@ -1,6 +1,8 @@
 extends Node
 @export var abiRef: TextureRect
 @export var isaRef: TextureRect
+@export var effect: GPUParticles2D
+@export var ui_mixer: AudioStreamPlayer
 var anim_timer = 0.0
 var anim_flip_time = 0.25
 var isa_angles = [-15, 15]
@@ -12,6 +14,7 @@ func _process(delta: float) -> void:
 		return
 	anim_timer += delta
 	if anim_timer >= anim_flip_time:
+		effect.modulate = Color(randf(), randf(), randf(), 1.0)
 		anim_timer = 0
 		if cur_idx:
 			cur_idx = 0
@@ -25,3 +28,8 @@ func _process(delta: float) -> void:
 func _on_button_pressed() -> void:
 	self.visible = false
 	GlobalData.paused = false
+	ui_mixer.play()
+
+
+func _on_button_mouse_entered() -> void:
+	ui_mixer.play()
