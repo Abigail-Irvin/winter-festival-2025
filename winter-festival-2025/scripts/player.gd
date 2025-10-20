@@ -4,7 +4,6 @@ extends CharacterBody2D
 var sanity_mult = 1
 const SPEED: float = 150.0
 var win_state: bool = false
-var paused: bool = false
 var timer: float = 0.0
 @export var animatedRef: AnimatedSprite2D
 @export var shadowRef: AnimatedSprite2D
@@ -51,7 +50,7 @@ func switch_sfx():
 func _input(event: InputEvent) -> void:
 	"""Basic input function for the player, used for the lantern and xray powers.
 	"""
-	if main_ref.get_paused():
+	if GlobalData.paused:
 		return
 	if event.is_action_pressed("light") and not spawned_light:
 		light_ref = lantern.instantiate()
@@ -116,7 +115,7 @@ func _physics_process(delta: float) -> void:
 	# ----------
 	# delta : float
 	#	represents the time between frames, used to do time-based calculations	
-	if main_ref.get_paused():
+	if GlobalData.paused:
 		animatedRef.stop()
 		shadowRef.stop()
 		return

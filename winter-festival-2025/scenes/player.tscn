@@ -100,7 +100,7 @@ walk_sfxRef = NodePath("walking_sfx")
 shape = SubResource("CircleShape2D_3vyb7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
+zoom = Vector2(2, 2)
 
 [node name="shadow" type="AnimatedSprite2D" parent="."]
 visible = false

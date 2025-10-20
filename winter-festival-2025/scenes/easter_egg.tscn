@@ -1,0 +1,128 @@
+[gd_scene load_steps=5 format=3 uid="uid://cur4u01i2f6u2"]
+
+[ext_resource type="Texture2D" uid="uid://dqj8h70uilw1" path="res://assets/sprites/isa-skrunkl.png" id="1_atl7k"]
+[ext_resource type="Script" uid="uid://cjo1euf1r3ibo" path="res://scripts/easter_egg.gd" id="1_w823v"]
+[ext_resource type="Texture2D" uid="uid://dets1qcxhkt0f" path="res://assets/sprites/abi-skrunkl.png" id="2_w823v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w823v"]
+bg_color = Color(0.18072984, 0.03973155, 0.29142746, 1)
+
+[node name="EasterEgg" type="Control" node_paths=PackedStringArray("abiRef", "isaRef")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w823v")
+abiRef = NodePath("Abi")
+isaRef = NodePath("Isa")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w823v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_right = 300.0
+offset_bottom = 862.0
+grow_horizontal = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 42
+text = "PANSIES RULE!!!!1!!ONE"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Now that it's just us, lemme tell you a recipe for some strawberry cheescake!
+
+For the crust
+1 1/4 cups of graham cracker crumbs
+1/3 cup of butter, melted
+1/4 cup white sugar
+2 teaspoons ground cinnamon
+
+For the filling
+20 oz of sliced strawberries, rinsed and drained.
+1 tablespoon cornstarch
+3 (8 oz) packages cream cheese, room temp
+1 (14 oz) can sweetend condensed milk
+1/4 cup lemon juice
+1/2 teaspoon vanilla extract
+3 large eggs
+
+Directions:
+Step 1- To make crust, combine graham cracker crumbs, butter, sugar, and cinnamon in a bowl;  mix well. Press onto the bottom of an ungreased 9-inch springform pan. Place in the refrigerator to chill for 30 minutes. Preheat the oven to 300 F / 150 C
+
+Step 2 - To make the filling, place strawberries and cornstarch into a blender; cover and puree until smooth. Pour the strawberry sauce into a saucepan and bring to a boil over high heat. Boil and stir until sauce is thick and shiny, about 2 minutes. Set aside 1/3 cup strawberry sauce and cool. Cover and refrigerate remaining sauce for serving.
+
+Step 3 - Beat cream cheese in a mixing bowl with an electric mixer until light and fluffy; gradually beat in condensed milk. Mix in lemon juice and vanilla extract, then beat in eggs on low speed until just combined.
+
+Step 4: Pour 1/2 of the cream cheese mixture over the crust; drop 1/2 of the reserved strawberry sauce by 1/2 teaspoons on the cream cheese layer. Carefully spoon remaining cream cheese mixture over sauce; drop remaining strawberry sauce by 1/2 teaspoonsfuls on top.
+
+Step 5 - Cut through the top layer only with a knife to swirl strawverry sauce and bake in preheated oven until the center is almost set, 45 to 50 minutes.
+
+Step 6 - Cool on a wire rack for 10 minutes. Carefully run a knife around the edge of the pan to loosen; cool for 1 hour at room temperature. Refrigerate at least 4 hours to overnight before serving.
+
+Step 7 - Serve cheesecake with reserved strawberry sauce. If sauce is too thick, stir in a bit of water.
+
+>:3 you actually read the whole thing didn't you?? Hope you enjoy!! Beep boop ^^w^^
+Source: https://www.allrecipes.com/recipe/222588/strawberry-cheesecake/"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Return"
+
+[node name="Isa" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -143.0
+offset_top = -278.0
+offset_right = 432.29883
+offset_bottom = 122.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(290, 150)
+texture = ExtResource("1_atl7k")
+expand_mode = 3
+
+[node name="Abi" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -438.0
+offset_top = -278.0
+offset_right = 131.6001
+offset_bottom = 122.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(290, 150)
+texture = ExtResource("2_w823v")
+expand_mode = 3
+flip_h = true
+
+[connection signal="pressed" from="Panel/VBoxContainer/Button" to="." method="_on_button_pressed"]

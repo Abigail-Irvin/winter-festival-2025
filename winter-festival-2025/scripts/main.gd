@@ -7,7 +7,6 @@ var exit = load("res://scenes/exit.tscn")
 var collectible = load("res://scenes/collectible.tscn")
 
 var winter = false
-var paused = true
 @export var fall_ground: Node2D
 @export var winter_ground: Node2D
 @export var main_ui: Control
@@ -16,6 +15,8 @@ var paused = true
 @export var player_ref: CharacterBody2D
 @export var ambiance_player: AudioStreamPlayer2D
 @export var music_player: AudioStreamPlayer2D
+@export var easter_egg_ref: Control
+@export var quiz_easter_egg_ref: Control
 var total_collectibles_needed = 0
 var collectible_total_lvl_0 = 0
 var collectible_total_lvl_1 = 0
@@ -23,8 +24,8 @@ var cur_collected_lvl_0 = 0
 var cur_collected_lvl_1 = 0
 var timer = 0
 var sanity = 100
-
 var collectible_coords = []
+var open_easter_egg_at = 0
 	
 func loop_playbacks() -> void:
 	if not ambiance_player.playing:
@@ -169,7 +170,7 @@ func draw_maze() -> void:
 			# check if we can place a blocker, and if so either place collectible or wall blocker
 			printed_coords.append(coords)
 			var place_wall = true
-			if randi() % 42 == 20:
+			if randi() % 20 == 7:
 				if not winter and collectible_total_lvl_0 < 10:
 					var collect_point = collectible.instantiate()
 					collect_point.position = coords
@@ -246,23 +247,17 @@ func collect_item(coords: Vector2) -> void:
 func start_game():
 	"""simple helper function called to ensure game start after clicking on the intro sequence.
 	"""
-	paused = false
+	GlobalData.paused = false
 	
 func win_game():
 	"""Calls the main ui to present the ending scene text and sets the relevant scoring information.
 	"""
-	if paused:
+	if GlobalData.paused:
 		return
-	paused = true
+	GlobalData.paused = true
 	var total_score = ((1 / (timer / 2)) + 0.5) * ((cur_collected_lvl_0 + cur_collected_lvl_1 + 0.5) / total_collectibles_needed) * 10000
 	var exit_text = "Collectibles obtained: " + str(cur_collected_lvl_0 + cur_collected_lvl_1) + "\nTotal Collectibles: " + str(total_collectibles_needed) + "\nTime: " + str(round(timer)) + "\nTotal Score: " + str(round(total_score))
 	main_ui.set_exit_text(exit_text)
-	
-	
-func get_paused():
-	"""Getter function for the paused variable, used specifically in the player script to stop movement.
-	"""
-	return paused
 	
 func advance_level() -> void:
 	"""Callback function called by exit gate when the player reaches its area. It is called by the
@@ -312,13 +307,20 @@ func closest_collectible() -> Vector2:
 			closest_vec = vec
 	return closest_vec
 	
+func open_popup() -> void:
+	GlobalData.paused = true
+	quiz_easter_egg_ref.visible = true
+
+func open_easter_egg() -> void:
+	easter_egg_ref.visible = true
+	
 func _process(delta: float) -> void:
 	"""Basic processing and ui updating function in main that handles calling main ui to update
 	relevant player information such as sanity and collectible data. Also handles player xray and
 	lantern powers.
 	"""
 	loop_playbacks()
-	if not paused:
+	if not GlobalData.paused:
 		timer += delta
 		if player_ref.spawned_light:
 			sanity += delta * 1.5
@@ -339,7 +341,13 @@ func _process(delta: float) -> void:
 		if winter:
 			current_total = collectible_total_lvl_1 - cur_collected_lvl_1
 			current_collected = cur_collected_lvl_1
+			if current_total == 0 and not GlobalData.easter_egg_tripped:
+				open_popup()
+				GlobalData.easter_egg_tripped = true
 		else:
 			current_total = collectible_total_lvl_0 - cur_collected_lvl_0
 			current_collected = cur_collected_lvl_0
+			if current_total == 0 and not GlobalData.easter_egg_tripped:
+				open_popup()
+				GlobalData.easter_egg_tripped = true
 		main_ui.update_ui_text(str(round(sanity)), str(current_total), str(current_collected), str(round(timer)))

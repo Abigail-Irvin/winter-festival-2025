@@ -1,17 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxxm201dsrxxc"]
 
 [ext_resource type="Script" uid="uid://xnb1qxb0plgf" path="res://scripts/collectible.gd" id="1_1pg6c"]
-[ext_resource type="Texture2D" uid="uid://dj8agwyfn8llf" path="res://assets/sprites/icon.svg" id="1_bkg8t"]
+[ext_resource type="Texture2D" uid="uid://bgn2nsfukglhc" path="res://assets/sprites/holly-wip.png" id="2_1pg6c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bkg8t"]
 radius = 69.260376
 
-[node name="Collectible" type="Node2D"]
+[node name="Collectible" type="Node2D" node_paths=PackedStringArray("spriteRef")]
 script = ExtResource("1_1pg6c")
+spriteRef = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_bkg8t")
+scale = Vector2(0.035, 0.035)
+texture = ExtResource("2_1pg6c")
 
 [node name="Area2D" type="Area2D" parent="."]
 

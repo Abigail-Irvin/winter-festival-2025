@@ -25,25 +25,25 @@ grow_horizontal = 2
 
 [node name="sanity" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 24
 text = "Sanity: 100"
 fit_content = true
 
 [node name="collectibles" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 24
 text = "Collectibles left in level: "
 fit_content = true
 
 [node name="total_collectibles" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 24
 text = "Total collectibles: "
 fit_content = true
 
 [node name="timer" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/normal_font_size = 24
 text = "Timer: "
 fit_content = true
 
